@@ -22,3 +22,5 @@ Apr 26, 2020 6:39:06 PM appointmentscheduler.LoginScreenController loginButtonHa
 INFO: Successful login by: test
 Apr 26, 2020 7:05:04 PM appointmentscheduler.LoginScreenController loginButtonHandler
 INFO: Successful login by: test
+Apr 27, 2020 7:00:59 AM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test

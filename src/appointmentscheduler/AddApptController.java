@@ -225,7 +225,9 @@ public class AddApptController implements Initializable {
             // Check start and end dates.
             LocalDate sDate = startDate.getValue();
             LocalDate eDate = endDate.getValue();
-            if (sDate != null && eDate != null) {
+            LocalTime sT = startTime.getSelectionModel().getSelectedItem();
+            LocalTime eT = endTime.getSelectionModel().getSelectedItem();
+            if (sDate != null && eDate != null && sT != null && eT != null) {
                 if (eDate.isBefore(sDate)) {
                     errorMessage.append("End date cannot be before start date.\n");
                     invalid = true;
@@ -233,35 +235,35 @@ public class AddApptController implements Initializable {
                     startDateTime.append(sDate.toString());
                     endDateTime.append(eDate.toString());
                 }
-            } else if (sDate == null) {
-                errorMessage.append("Please specify a start date.\n");
-                invalid = true;
-            } else {
-                errorMessage.append("Please specify an end date.\n");
-                invalid = true;
-            }
-            LocalTime sT = startTime.getSelectionModel().getSelectedItem();
-            LocalTime eT = endTime.getSelectionModel().getSelectedItem();
-            try {
-                if (sT != null && eT != null ) {
-                    if (eT.isBefore(sT)) {
-                        errorMessage.append("End time cannot be before start time.");
-                        invalid = true;
-                    } else {
-                        checkAppointmentDateTime(sT, eT, sDate, eDate, startDateTime, endDateTime);
-                    }
-                } else if (sT == null) {
-                    errorMessage.append("Please specify a start time.\n");
+                if (eT.isBefore(sT)) {
+                    errorMessage.append("End time cannot be before start time.");
                     invalid = true;
                 } else {
+                    try {
+                        checkAppointmentDateTime(sT, eT, sDate, eDate, startDateTime, endDateTime);
+                    } catch (OutsideHoursException | OverlappingTimesException e) {
+                        errorMessage.append(e.getMessage());
+                        invalid = true;
+                    }
+                }
+            } else {
+                if (sDate == null) {
+                    errorMessage.append("Please specify a start date.\n");
+                    invalid = true;
+                }
+                if (eDate == null) {
+                    errorMessage.append("Please specify an end date.\n");
+                    invalid = true;
+                }
+                if (sT == null) {
+                    errorMessage.append("Please specify a start time.\n");
+                    invalid = true;
+                }
+                if (eT == null) {
                     errorMessage.append("Please specify a end time.\n");
                     invalid = true;
                 }
-            } catch (OutsideHoursException | OverlappingTimesException e) {
-                errorMessage.append(e.getMessage());
-                invalid = true;
             }
-
             if (invalid) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
