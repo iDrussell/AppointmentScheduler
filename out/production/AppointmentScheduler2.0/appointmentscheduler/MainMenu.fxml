@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="appointmentscheduler.MainMenuController">
+   <children>
+      <Label fx:id="greeting" layoutX="14.0" layoutY="14.0" textFill="#5c3fff">
+         <font>
+            <Font name="Leelawadee UI Bold" size="22.0" />
+         </font>
+      </Label>
+      <TableView fx:id="apptTable" editable="true" layoutX="350.0" layoutY="187.0" prefHeight="600.0" prefWidth="1030.0">
+        <columns>
+          <TableColumn fx:id="appointmentTableID" prefWidth="124.79998779296875" text="Appointment ID" />
+          <TableColumn fx:id="apptCustomerName" prefWidth="149.60003662109375" text="Customer Name" />
+            <TableColumn fx:id="apptTableConsultant" minWidth="0.0" prefWidth="188.0" text="Consultant" />
+            <TableColumn fx:id="apptTableType" prefWidth="148.0" text="Type" />
+            <TableColumn fx:id="apptTableStart" prefWidth="192.0" text="Start" />
+            <TableColumn fx:id="apptTableEnd" prefWidth="244.0" text="End" />
+        </columns>
+      </TableView>
+      <VBox alignment="TOP_CENTER" layoutX="20.0" layoutY="187.0" prefHeight="200.0" prefWidth="230.0" spacing="20.0">
+         <children>
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="26.0" prefWidth="176.0" text="Add Appointment" textOverrun="CLIP" />
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#updateApptHandler" prefHeight="26.0" prefWidth="176.0" text="Update Appointment" />
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#deletedApptHandler" prefHeight="26.0" prefWidth="176.0" text="Delete Appointment" />
+            <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#viewCustomersHandler" prefHeight="26.0" prefWidth="176.0" text="View Customers" />
+         </children>
+      </VBox>
+      <RadioButton fx:id="viewMonth" layoutX="357.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewMonthHandler" selected="true" text="View Current Month">
+         <font>
+            <Font name="Leelawadee UI" size="13.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="calendarViewGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="viewCurrentWeek" layoutX="513.0" layoutY="159.0" mnemonicParsing="false" onAction="#currentWeekHandler" text="View Current Week" toggleGroup="$calendarViewGroup">
+         <font>
+            <Font name="Leelawadee UI" size="13.0" />
+         </font></RadioButton>
+      <GridPane layoutX="509.0" layoutY="14.0" prefHeight="131.0" prefWidth="870.0" style="-fx-border-color: black; -fx-border-radius: 10;">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Reports" textFill="#5c3fff" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Leelawadee UI Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label text="Number of appointment types by month" GridPane.rowIndex="1" />
+            <Label text="Consultant Schedules" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Total Appointsments by Customer" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#typesByMonthHandler" text="View" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#schedulesHandler" text="View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#apptsByCustomerHandler" text="View" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

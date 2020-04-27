@@ -1,0 +1,24 @@
+Apr 19, 2020 7:25:14 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: Test
+Apr 19, 2020 7:26:40 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 19, 2020 7:28:13 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 19, 2020 8:48:09 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: user
+Apr 19, 2020 8:48:24 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Failed login Attempt by: asd
+Apr 19, 2020 9:26:39 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: user
+Apr 19, 2020 9:27:42 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: user
+Apr 26, 2020 5:13:44 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 26, 2020 5:15:59 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 26, 2020 5:19:00 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 26, 2020 6:39:06 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
+Apr 26, 2020 7:05:04 PM appointmentscheduler.LoginScreenController loginButtonHandler
+INFO: Successful login by: test
