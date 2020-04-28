@@ -72,7 +72,6 @@ public class AddApptController implements Initializable {
             if (startTime.isBefore(tsStart) && endTime.isAfter(tsStart)) {
                 throw new OverlappingTimesException();
             }
-            
             if (endTime.isAfter(tsEnd) && startTime.isBefore(tsEnd)) {
                 throw new OverlappingTimesException();
             }
@@ -102,19 +101,23 @@ public class AddApptController implements Initializable {
         return userId;
     }
 
-    private void addAppointment(Connection conn, int customerId, int userId, String type, String sDT,
-                                String eDT, String createdBy, String createDate, String lastUpdate) throws SQLException {
+    private void addAppointment(Connection conn, int customerId, int userId, String type, StringBuilder sDT,
+                                StringBuilder eDT) throws SQLException {
+
+        String createTime = LocalTime.now().format(DateTimeFormatter.ofPattern("kk:mm:ss"));
+        String createDateTime = LocalDate.now().toString();
+        createDateTime = createDateTime + " " + createTime;
         String query = "INSERT INTO appointment VALUES (null,?,?,'not needed','not needed','not needed','not needed',?,'not needed',?,?,?,?,?,?)";
         PreparedStatement add = conn.prepareStatement(query);
         add.setInt(1, customerId);
         add.setInt(2, userId);
         add.setString(3, type);
-        add.setTimestamp(4, stringDateTimeToTimestamp(sDT));
-        add.setTimestamp(5, stringDateTimeToTimestamp(eDT));
-        add.setTimestamp(6, stringDateTimeToTimestamp(createDate));
-        add.setString(7, createdBy);
-        add.setTimestamp(8, stringDateTimeToTimestamp(lastUpdate));
-        add.setString(9, createdBy);
+        add.setTimestamp(4, stringDateTimeToTimestamp(sDT.toString()));
+        add.setTimestamp(5, stringDateTimeToTimestamp(eDT.toString()));
+        add.setTimestamp(6, stringDateTimeToTimestamp(createDateTime));
+        add.setString(7, USER);
+        add.setTimestamp(8, stringDateTimeToTimestamp(createDateTime));
+        add.setString(9, USER);
         System.out.println(add.toString());
         add.execute();
     }
@@ -199,7 +202,7 @@ public class AddApptController implements Initializable {
         boolean invalid = false;
         Connection conn = DBConnector.getConnection();
         int customerId = -1 , userId = -1;
-        String type, createdBy, createDate, lastUpdate;
+        String type;
 
         // do input checks
         try {
@@ -222,7 +225,7 @@ public class AddApptController implements Initializable {
                 errorMessage.append("Type field is required.\n");
                 invalid = true;
             }
-            // Check start and end dates.
+            // Check start and end dates / times.
             LocalDate sDate = startDate.getValue();
             LocalDate eDate = endDate.getValue();
             LocalTime sT = startTime.getSelectionModel().getSelectedItem();
@@ -272,18 +275,7 @@ public class AddApptController implements Initializable {
                 alert.showAndWait();
                 return;
             }
-            
-            // do some dateTime building
-            String createTime = LocalTime.now().format(DateTimeFormatter.ofPattern("kk:mm:ss"));
-            createDate = LocalDate.now().toString();
-            createDate = createDate + " " + createTime;
-            createdBy = USER;
-            String lastUpdateTime = LocalTime.now().format(DateTimeFormatter.ofPattern("kk:mm:ss"));
-            lastUpdate = LocalDate.now().toString();
-            lastUpdate = lastUpdate + " " + lastUpdateTime;
-            String sDT = startDateTime.toString();
-            String eDT = endDateTime.toString();
-            addAppointment(conn, customerId, userId, type, sDT, eDT, createdBy, createDate, lastUpdate);
+            addAppointment(conn, customerId, userId, type, startDateTime, endDateTime);
 
             // return to main menu
             Parent main_parent = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
